@@ -78,28 +78,6 @@ class UserController {
                 })
             })
     }
-
-    static delete(req, res, next) {
-        let id = req.params.id;
-        User.findByPk(id)
-            .then(data => {
-                if(data) {
-                    return User.destroy({
-                        where: { id }
-                    })
-                } else {
-                    return next(err)
-                }
-            })
-            .then(result => {
-                return res.status(200).json({
-                    message : 'Success delete'
-                })
-            })
-            .catch(err => {
-                return next(err)
-            })
-    }
 }
 
 
