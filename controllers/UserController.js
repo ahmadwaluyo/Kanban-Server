@@ -78,6 +78,46 @@ class UserController {
                 })
             })
     }
+
+    static googleSignIn(req, res, next) {
+        const client = new OAuth2Client(process.env.CLIENT_ID);
+        const email = {};
+        const token = req.headers.token;
+        client.verifyIdToken({
+            idToken: token,
+            audience: process.env.CLIENT_ID
+        })
+            .then(ticket => {
+                let payload = ticket.getPayload();
+                email.payload = payload.email;
+                return User.findOne({
+                    where: {
+                        email: email.payload
+                    }
+                })
+            })
+            .then(data => {
+                if(data) {
+                    return data;
+                } else {
+                    return User.create({
+                        email: email.payload,
+                        password: process.env.MANUAL_PWD
+                    })
+                }
+            })
+            .then(data => {
+                const payload = {
+                    id: data.id,
+                    email: data.email
+                }
+                const token = generateToken(payload);
+                return res.status(201).json(token)
+            })
+            .catch(err =>{
+                return next(err)
+            })
+    }
 }
 
 
