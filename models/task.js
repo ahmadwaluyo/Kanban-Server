@@ -12,17 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Category must be filled'
-        },
-        defaultValue: 'PRELOG'
-      }
-    },
+    category: DataTypes.STRING,
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -34,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'cascade'
     }
   }, {
+    hooks: {
+      beforeCreate: (Task, option) => {
+        Task.category = 'PRELOG'
+      }
+    },
     sequelize,
     modelName: 'Task'
   })
