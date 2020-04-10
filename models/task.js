@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: 'Category must be filled'
-        }
+        },
+        defaultValue: 'PRELOG'
       }
     },
     UserId: {
