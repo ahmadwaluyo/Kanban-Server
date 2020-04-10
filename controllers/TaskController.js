@@ -24,9 +24,9 @@ class TaskController {
     }
 
     static create(req, res, next) {
-        let { title, category } = req.body;
+        let { title } = req.body;
         console.log(req.body)
-        let payload = { title, category, UserId : req.decoded.id };
+        let payload = { title, UserId : req.decoded.id };
         Task.create(payload)
             .then(newTask => {
                 if(newTask) {
