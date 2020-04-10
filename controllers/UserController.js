@@ -81,12 +81,12 @@ class UserController {
     }
 
     static googleSignIn(req, res, next) {
-        const client = new OAuth2Client('875560547981-qh8ognlsdq7qdj02bh8ncv29jfkgkvi0.apps.googleusercontent.com');
+        const client = new OAuth2Client(process.env.CLIENT_ID);
         const email = {};
         const token = req.headers.token;
         client.verifyIdToken({
             idToken: token,
-            audience: '875560547981-qh8ognlsdq7qdj02bh8ncv29jfkgkvi0.apps.googleusercontent.com'
+            audience: process.env.CLIENT_ID
         })
             .then(ticket => {
                 let payload = ticket.getPayload();
