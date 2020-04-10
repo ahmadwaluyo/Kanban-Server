@@ -1,108 +1,347 @@
 # Kanban-Server
 
-User
-Register
-Add a new user to database
+- baseUrl: http://localhost:3000
 
-URL
+## User
 
-/register
+### **Register**
 
-Method:
+------
 
-POST
+Regist a new user to database
 
-URL Params
+- **URL**
 
-Required:
+  /register
 
-None
+- **Method:**
 
-Data Params
+  `POST`
 
-email=[string],password=[string]
+- **URL Params**
 
-Success Response:
+  **Required:**
 
-Code: 201
-Content: { "id": 15,"email": "test520@gmail.com" }
+  None
 
-Error Response:
-Code: 500
-Content: Internal Server Error
+- **Data Params**
 
-OR
+  email=[string]
 
-Code: 400
+  password=[string]
 
-Content: Bad Request
+- **Success Response:**
 
-OR
+  - **Code:** 201
+    **Content:** `{ id:1 email : "ahmad12@mail.com" }`
 
-Code: 403
+- **Error Response:**
 
-Content: Unauthorized
+- **Code:** 500
+  **Content:** `Internal Server Error`
 
-OR
+  OR
 
-Code: 403
+- **Code:** 400
 
-Content: Forbidden
+  **Content:** `Bad Request`
 
-Login
-Add a new user to database
+  OR
 
-URL
+- **Code:** 401
 
-/login
+  **Content:** `Unauthorized`
 
-Method:
+  OR
 
-POST
+- **Code:** 403
 
-URL Params
+  **Content:** `Forbidden`
 
-Required:
+### **Login**
 
-None
+------
 
-Data Params
+Login to access data from database
 
-email=[string],password=[string]
+- **URL**
 
-Success Response: 
-{
-  "msg": "User successfully login",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoidGVzdDUyMEBnbWFpbC5jb20iLCJpYXQiOjE1ODYzOTU0MDZ9.aKQKMrJQanyCofQRywMML5RfaLANVlIfmjUIGLmA5PE"
-}
+  /login
 
-Code: 200
-Content: Access Token
-Error Response:
+- **Method:**
 
-Code: 500
-Content: Internal Server Error
+  `POST`
 
-OR
+- **URL Params**
 
-Code: 400
+  **Required:**
 
-Content: Bad Request
+  None
 
-OR
+- **Data Params**
 
-Code: 403
+  email=[string]
 
-Content: Unauthorized
+  password=[string]
 
-OR
+- **Success Response:**
 
-Code: 403
+  - **Code:** 200
+    **Content:** `Access Token`
 
-Content: Forbidden
+    `{
+      "msg": "User successfully login",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImVtYWlsIjoiYWhtYWQxMkBnbWFpbC5jb20iLCJpYXQiOjE1ODY1MjY4ODJ9.ncOepymemg5kSXfJ1s1MXVX8PSZNsOmlcDln1_QHad8"
+    }`
 
-OR
+- **Error Response:**
 
-Code: 404
+  - **Code:** 500
+    **Content:** `Internal Server Error`
 
-Content: Task Not Found
+    OR
+
+  - **Code:** 400
+
+    **Content:** `Bad Request`
+
+    OR
+
+  - **Code:** 401
+
+    **Content:** `Unauthorized`
+
+    OR
+
+  - **Code:** 403
+
+    **Content:** `Forbidden`
+
+    OR
+
+  - **Code:** 404
+
+    **Content:** `Task Not Found`
+
+## **GET ALL TASKS**
+
+Returns json data from database Tasks.
+
+- **URL**
+
+  /task
+
+- **Method:**
+
+  `GET`
+
+- **URL Params**
+
+  **Required:**
+
+  None
+
+- **Headers**
+
+  **Required:** `Access Token`
+
+  `token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1hZC51bWIxNUBnbWFpbC5jb20iLCJpYXQiOjE1ODY1MjcxODF9.amb0YTqUfpZiUgsnq5DdeHXo-xzHawYGqM7jZb9LdlM`
+
+- **Success Response:**
+
+  - **Code:** 200
+    Content:** `[{ title : "First task", category : "PRELOG", UserId:1 createdAt: 2020-04-08, updatedAt:2020-04-08 }]`
+
+- **Error Response:**
+
+  - **Code:** 500
+    **Content:** `Internal Server Error`
+
+    OR
+
+  - **Code:** 401
+
+    **Content:** `Unauthorized`
+
+    OR
+
+  - **Code:** 403
+
+    **Content:** `Forbidden`
+
+## **CREATE TASK**
+
+Adding a new task.
+
+- **URL**
+
+  /task/add
+
+- **Method:**
+
+  `POST`
+
+- **URL Params**
+
+  **Required:**
+
+  None
+
+- **Headers**
+
+  **Required:** `Access Token`
+
+  `token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1hZC51bWIxNUBnbWFpbC5jb20iLCJpYXQiOjE1ODY1MjcxODF9.amb0YTqUfpZiUgsnq5DdeHXo-xzHawYGqM7jZb9LdlM`
+
+- **Data Params**
+
+  title=[string]
+
+  category=[string]
+
+- **Success Response:**
+
+  - **Code:** 200
+    **Content:** 
+
+    `{
+      "id": 2,
+      "title": "Second Try",
+      "category": "PRELOG",
+      "UserId": 16,
+      "updatedAt": "2020-04-09T19:30:28.069Z",
+      "createdAt": "2020-04-09T19:30:28.069Z"
+    }`
+
+- **Error Response:**
+
+  - **Code:** 500
+    **Content:** `Internal Server Error`
+
+    OR
+
+  - **Code:** 400
+
+    **Content:** `Bad Request`
+
+  - **Code:** 401
+
+    **Content:** `Unauthorized`
+
+    OR
+
+  - **Code:** 403
+
+    **Content:** `Forbidden`
+
+## **UPDATE TASK**
+
+Find and update task by "id".
+
+- **URL**
+
+  /task/:id
+
+- **Method:**
+
+  `PUT`
+
+- **URL Params**
+
+  **Required:** id=[integer]
+
+- **Headers**
+
+  **Required:** `Access Token`
+
+  `token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1hZC51bWIxNUBnbWFpbC5jb20iLCJpYXQiOjE1ODY1MjcxODF9.amb0YTqUfpZiUgsnq5DdeHXo-xzHawYGqM7jZb9LdlM`
+
+- **Data Params**
+
+  title=[string], category=[string]
+
+- **Success Response:**
+
+  - **Code:** 200
+    **Content:** `{
+      "id": 1,
+      "title": "First Try oke",
+      "category": "PRELOG",
+      "UserId": 16,
+      "createdAt": "2020-04-09T19:18:30.543Z",
+      "updatedAt": "2020-04-09T19:29:46.136Z"
+    }`
+
+- **Error Response:**
+
+  - **Code:** 500
+    **Content:** `Internal Server Error`
+
+  - **Code:** 400
+
+    **Content:** `Bad Request`
+
+    OR
+
+  - **Code:** 401
+
+    **Content:** `Unauthorized`
+
+    OR
+
+  - **Code:** 403
+
+    **Content:** `Forbidden`
+
+## **DELETE TASK**
+
+delete task by id.
+
+- **URL**
+
+  /task/:id
+
+- **Method:**
+
+  `DELETE`
+
+- **Headers**
+
+  **Required:** `Access Token`
+
+  `token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1hZC51bWIxNUBnbWFpbC5jb20iLCJpYXQiOjE1ODY1MjcxODF9.amb0YTqUfpZiUgsnq5DdeHXo-xzHawYGqM7jZb9LdlM`
+
+- **URL Params**
+
+- **Data Params**
+
+  None
+
+- **Success Response:**
+
+  - **Code:** 200
+    **Content:** `{ message: 'Successfully delete task' }`
+
+- **Error Response:**
+
+  - **Code:** 500 NOT FOUND
+    **Content:** `Internal Server Error`
+
+    OR
+
+  - **Code:** 400
+
+    **Content:** `Bad Request`
+
+    OR
+
+  - **Code:** 401
+
+    **Content:** `Unauthorized`
+
+    OR
+
+  - **Code:** 403
+
+    **Content:** `Forbidden`
+
